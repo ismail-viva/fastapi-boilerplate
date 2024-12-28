@@ -1,0 +1,194 @@
+[tool.poetry]
+name = "stickler-mvp"
+version = "0.1.0"
+description = ""
+authors = []
+maintainers = []
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+shared = {git = "ssh://git@bitbucket.org/sticklerdev/stickler-shared-models.git", rev = "develop"}
+fastapi = "^0.115.6"
+strawberry-graphql = "^0.133.5"
+SQLAlchemy = {version = "^2.0.36", extras = ["asyncio"]}
+alembic = "^1.7.5"
+anyio = "^3.6.1"
+asyncpg = "^0.26.0"
+redis = "^4.3.4"
+phonenumbers = "^8.13.0"
+python-dotenv = "^1.0.0"
+passlib = "^1.7.4"
+psycopg2-binary = "^2.9.3"
+pydantic = {version = "^2.10.4", extras = ["email"]}
+pydantic-settings = "^2.7.0"
+pyseto = "^1.6.11"
+pytz = "^2022.4"
+requests = "^2.26.0"
+uvicorn = "^0.16.0"
+TikTokLive = "^6.1.8"
+aiofiles = "^22.1.0"
+boto3 = "^1.26.76"
+aioboto3 = "^11.1.0"
+websockets = "^10.4"
+pdfkit = "^1.0.0"
+wkhtmltopdf = "^0.2"
+broadcaster = "^0.2.0"
+asyncio-redis = "^0.16.0"
+aiohttp = "^3.8.4"
+stripe = "^5.4.0"
+tikapi = "^3.1.22"
+numpy = "^1.23.2"
+pandas = "^2.0.3"
+openpyxl = "^3.1.2"
+bleach = "^6.1.0"
+google-auth = "^2.37.0"
+google_auth_oauthlib = "^1.2.1"
+google-auth-httplib2 = "^0.2.0"
+google-api-python-client = "^2.156.0"
+beautifulsoup4 = "^4.11.2"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.2"
+pytest-cov = "^4.0.0"
+pytest-mock = "^3.10.0"
+pytest-asyncio = "^0.21.1"
+pytest-env = "^0.8.1"
+Faker = "*"
+pre-commit = "^4.0.0"
+ruff = "*"
+mypy = "^1.1.1"
+black = "^22.12.0"
+codespell = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.black]
+line-length = 99
+
+[tool.mypy]
+strict = true
+plugins = ["pydantic.mypy"]
+exclude = ["venv", ".venv", "alembic"]
+
+[tool.ruff]
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    "alembic",
+]
+
+target-version = "py310" # Target Python version 3.10
+line-length = 99
+indent-width = 4
+# Allow imports relative to the "src" directories.
+src = ["apps", "config", "gql", "jobs", "routers", "scripts", "utils"]
+cache-dir = "~/.cache/ruff"
+
+[tool.ruff.lint]
+select = [
+    "F",    # pyflakes
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "UP",   # pyupgrade
+    "I",    # isort
+    "N",    # pep8-naming
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "ANN",  # flake8-annotations
+    "ASYNC",# flake8-async
+    "FBT",  # flake8-boolean-trap
+    "A",    # flake8-builtins
+    "BLE",  # flake8-blind-except
+    "DTZ",  # flake8-datetimez
+    "T10",  # flake8-debugger
+    "T20",  # flake8-print
+    "FA",   # flake8-future-annotations
+    "PIE",  # flake8-pie
+    "PYI",  # flake8-pyi
+    "PT",   # flake8-pytest-style
+    "RSE",  # flake8-raise
+    "RET",  # flake8-return
+    "SIM",  # flake8-simplify
+    "TID",  # flake8-tidy-imports
+    "TC",   # flake8-type-checking
+    "ARG",  # flake8-unused-arguments
+    "PTH",  # flake8-use-pathlib
+    "NPY",  # NumPy-specific rules
+    "PD",   # pandas-vet
+    "FLY",  # flynt
+    "PL",   # pylint
+    "PERF", # pyperf
+    "TRY",  # tryceratops
+    "FURB", # refurb
+    "FAST", # FastAPI-specific rules
+    "S",    # bandit
+    "C90",  # mccabe
+    "RUF",  # Ruff-specific
+]
+ignore = [
+    "B904",     # Allow raising exceptions without from e, for HTTPException
+    "COM812",   # "Trailing comma missing". If black is happy, I'm happy.
+    "D",        # "Missing docstring ...."
+    "ERA001",   # "Ignore commented-out code"
+    "RET504",   # "Unnecessary variable assignment before "return" statement"
+    "SIM108",   # "Use ternary operator ...". Ternary is harmful for readability in some cases.
+]
+
+fixable = ["ALL"]
+unfixable = []
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+
+[tool.ruff.lint.extend-per-file-ignores]
+"**/__init__.py" = ["F401"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.ruff.lint.pyupgrade]
+keep-runtime-typing = true
+
+
+[tool.ruff.format]
+quote-style = "double"            # Like Black, use double quotes for strings.
+indent-style = "space"            # Like Black, indent with spaces, rather than tabs.
+line-ending = "auto"              # Like Black, automatically detect the appropriate line ending.
+skip-magic-trailing-comma = false # Like Black, respect magic trailing commas.
+
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+filterwarnings = ["ignore::DeprecationWarning"]
+testpaths = [
+    "tests"
+]
+# Prevents pytest from buffering output until the end of a failed test
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
